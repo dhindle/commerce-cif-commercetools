@@ -29,6 +29,7 @@ class OrderMapper {
      */
     mapOrder(ctOrder) {
         if(!ctOrder.body.id) {
+            console.error("No order id in Commerce Tools response", ctOrder);
             throw new Error("No order id in Commerce Tools response.");
         }
         const ccifOrder = new Order.Builder()

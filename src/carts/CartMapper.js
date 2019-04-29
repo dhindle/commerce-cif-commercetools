@@ -60,9 +60,11 @@ class CartMapper {
      */
     mapCart(ctCart) {
         if (!ctCart || !ctCart.body) {
+            console.error('invalid cart response received from commerce tools', ctCart);
             throw new MissingPropertyException('invalid cart response received from commerce tools');
         }
         if (!ctCart.body.id) {
+            console.error('id missing for commercetools cart', ctCart);
             throw new MissingPropertyException('id missing for commercetools cart');
         }
 

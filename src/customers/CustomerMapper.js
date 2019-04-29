@@ -43,6 +43,7 @@ class CustomerMapper {
      */
     mapCustomer(ctCustomer) {
         if (!ctCustomer || !ctCustomer.body || !ctCustomer.body.id) {
+            console.error('invalid customer response received from commerce tools', ctCustomer);
             throw new MissingPropertyException('invalid customer response received from commerce tools');
         }
 
@@ -54,6 +55,7 @@ class CustomerMapper {
      */
     _mapCustomer(ctCustomer) {
         if (!ctCustomer || !ctCustomer.id) {
+            console.error('invalid customer object received from commerce tools', ctCustomer);
             throw new MissingPropertyException('invalid customer object received from commerce tools');
         }
 
@@ -77,6 +79,7 @@ class CustomerMapper {
      */
     mapCustomerLogin(ctResult) {
         if (!ctResult || !ctResult.body || !ctResult.body.customer) {
+            console.error('invalid customer response received from commerce tools', ctResult);
             throw new MissingPropertyException('invalid customer response received from commerce tools');
         }
 

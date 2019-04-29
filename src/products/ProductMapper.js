@@ -91,9 +91,11 @@ class ProductMapper {
      */
     _mapProduct(ctProduct) {
         if (ctProduct.id === undefined) {
+            console.error('id missing for commercetools product', ctProduct);
             throw new MissingPropertyException('id missing for commercetools product');
         }
         if (ctProduct.masterVariant === undefined || ctProduct.masterVariant.id === undefined) {
+            console.error('master variant missing for commercetools product', ctProduct);
             throw new MissingPropertyException('master variant missing for commercetools product');
         }
 
