@@ -79,10 +79,12 @@ class CommerceToolsCart extends CommerceToolsClientBase {
                 data.version = result.body.version;
                 return this._handlePostCart(baseUrl, data);
             }).catch(error => {
+                console.error("Received error when updating uncached cart", baseUrl, data, error);
                 return this._handleError(error);
             });
         } else {
             return this._handlePostCart(baseUrl, data).catch(error => {
+                console.error("Received error when updating cached cart", baseUrl, data, error);
                 return this._handleError(error);
             });
         }
@@ -99,6 +101,7 @@ class CommerceToolsCart extends CommerceToolsClientBase {
         return this._handle(baseUrl, 'POST', data).catch((error) => {
             //check again for error code conflict. could be customer not allowed error.
             if (error && error.code === HttpStatusCodes.CONFLICT) {
+                console.log("Cart is outdated, fetch latest cart", error);
                 return this._ctCartById(baseUrl).then(result => {
                     data.version = result.body.version;
                     return this._handle(baseUrl, 'POST', data);
@@ -122,6 +125,7 @@ class CommerceToolsCart extends CommerceToolsClientBase {
         return this._ctCartById(baseUrl).then(result => {
             return this._handleSuccess(this.mapper(result, args));
         }).catch(error => {
+            console.error("Could not retrieve cart", baseUrl, error);
             return this._handleError(error);
         });
     }

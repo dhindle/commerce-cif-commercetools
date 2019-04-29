@@ -80,6 +80,7 @@ function getCategories(args) {
             categories.sort(field, direction);
         });
     } catch(err) {
+        console.error("Received invalid arguments", id, limit, offset, depth, type, sorts, err);
         args['response'] = { 'error': new InvalidArgumentError(err.message), 'errorType': categories.errorType };
         return Promise.resolve(args);
     }

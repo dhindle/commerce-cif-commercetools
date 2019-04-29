@@ -57,10 +57,12 @@ class CommerceToolsCartOrder extends CommerceToolsCartVersion {
                 data.version = result.body.version;
                 return this._handlePostOrder(baseUrl, data);
             }).catch(error => {
+                console.error("Received error for uncached postOrder request", baseUrl, data, error);
                 return this._handleError(error);
             });
         } else {
             return this._handlePostOrder(baseUrl, data).catch((error) => {
+                console.error("Received error for cached postOrder request", baseUrl, data, error);
                 return this._handleError(error);
             });
         }
@@ -75,6 +77,7 @@ class CommerceToolsCartOrder extends CommerceToolsCartVersion {
     _handlePostOrder(baseUrl, data) {
         return this.orderClient.post(data).catch((error) => {
             if (error && error.code === HttpStatusCodes.CONFLICT) {
+                console.log("Cart is outdated, fetch latest cart", error);
                 return this._ctCartById(baseUrl).then(result => {
                     data.version = result.body.version;
                     return this.orderClient.post(data);

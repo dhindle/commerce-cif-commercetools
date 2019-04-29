@@ -99,6 +99,7 @@ function _executeSearch(commerceToolsProductSearch, limit, offset) {
             .expand('productType')
             .search();
     } catch(err) {
+        console.error("Received error for search products request", limit, offset, err);
         commerceToolsProductSearch.args['response'] = { 'error': new InvalidArgumentError(err.message), 'errorType': commerceToolsProductSearch.errorType };
         return Promise.resolve(commerceToolsProductSearch.args);
     }

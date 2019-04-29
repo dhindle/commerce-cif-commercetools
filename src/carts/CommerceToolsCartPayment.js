@@ -64,6 +64,7 @@ class CommerceToolsCartPayment extends CommerceToolsCart {
             this._setExpandConfiguration();
             return this._handle(baseUrl, 'POST', data);
         }).catch(error => {
+            console.error("Failed to add cart payment", baseUrl, payment, error);
             return this._handleError(error);
         });
     }
@@ -123,6 +124,7 @@ class CommerceToolsCartPayment extends CommerceToolsCart {
                 return Promise.resolve(cart);
             });
         }).catch(error => {
+            console.error("Failed to delete payment", baseUrl, error);
             return this._handleError(error);
         });
     }
@@ -159,6 +161,7 @@ class CommerceToolsCartPayment extends CommerceToolsCart {
                 return Promise.resolve(JSON.parse(_localCart));
             })
             .catch(error => {
+                console.error("Failed to delete cart payment", baseUrl, paymentId, error);
                 return this._handleError(error);
             });
     }

@@ -167,6 +167,7 @@ class CommerceToolsClientBase {
             if (error && error.code === HttpStatusCodes.CONFLICT) {
                 throw error;
             }
+            console.error("Received error for request", baseUrl, method, data, error);
             return this._handleError(error);
         });
     }
